@@ -23,10 +23,11 @@ fastify.register(fastifyFormBody);
 fastify.register(fastifyWs);
 
 // Constants
-const SYSTEM_MESSAGE = 'You are an AI receptionist for Barts Automotive. Your job is to politely engage with the client and obtain their name, availability, and service/work required. Ask one question at a time. Do not ask for other contact information, and do not check availability, assume we are free. Ensure the conversation remains friendly and professional, and guide the user to provide these details naturally. If necessary, ask follow-up questions to gather the required information.';
+const SYSTEM_MESSAGE =
+  "You are CheckApp - personal AI health assistant. Your role is to engage with users politely and helpfully to gather key health information. Your goal is to obtain the user's name, primary health concerns, symptoms, and relevant health background details to assist with a preliminary health check. Ask one question at a time to keep the conversation natural and approachable. Do not request any sensitive personal information like contact details or specific diagnoses, as you are only here to assist with general health insights. Ensure the conversation remains supportive, friendly, and professional, guiding the user to provide the information they feel comfortable sharing. If needed, ask gentle follow-up questions to clarify details about their symptoms or health concerns."
 const VOICE = 'alloy';
 const PORT = process.env.PORT || 5050;
-const WEBHOOK_URL = "<input your webhook URL here>";
+const WEBHOOK_URL = 'https://hook.eu1.make.com/p4vxg2j8u2bgvq2jb226y1p96cpd7c38'
 
 // Session management
 const sessions = new Map();
@@ -55,11 +56,11 @@ fastify.all('/incoming-call', async (request, reply) => {
 
     const twimlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                           <Response>
-                              <Say>Hi, you have called Bart's Automative Centre. How can we help?</Say>
+                              <Say>Hi, you have called CheckApp personal AI health assistant. How can we help?</Say>
                               <Connect>
                                   <Stream url="wss://${request.headers.host}/media-stream" />
                               </Connect>
-                          </Response>`;
+                          </Response>`
 
     reply.type('text/xml').send(twimlResponse);
 });
